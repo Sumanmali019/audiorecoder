@@ -1,21 +1,30 @@
+import 'package:audiorecoed/firebaseAuth/login_service.dart';
 import 'package:audiorecoed/soundAPI/sound_player.dart';
 import 'package:audiorecoed/soundAPI/sound_recoder.dart';
+import 'package:audiorecoed/soundAPI/upload_api.dart';
 import 'package:audiorecoed/theme/colors.dart';
 import 'package:audiorecoed/widgets/timer_widget.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-class Buildstate extends StatefulWidget {
-  const Buildstate({Key? key}) : super(key: key);
+class Homepage extends StatefulWidget {
+  const Homepage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<Buildstate> createState() => _BuildstateState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _BuildstateState extends State<Buildstate> {
+class _HomepageState extends State<Homepage> {
   final timeController = TimeController();
   final recorder = Soundrecoder();
   final player = SoundPlayer();
+  // final upload = Recodedbutton(
+  //   onUploadComplete: () {},
+  // );
+  List<Reference> references = [];
 
   @override
   void initState() {
@@ -34,22 +43,46 @@ class _BuildstateState extends State<Buildstate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: veryDarkBlue,
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          buildPlayer(),
-          const SizedBox(
-            height: 18,
-          ),
-          buildstate(),
-          const SizedBox(
-            height: 10,
-          ),
-          buildPlay(),
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
+        title: const Text('Welcome'),
+        centerTitle: true,
+        actions: [
+          TextButton(
+              onPressed: () {
+                Authentication().signOut();
+              },
+              child: const Text(
+                'Logout',
+                style: TextStyle(color: Colors.white),
+              ))
         ],
-      )),
+      ),
+      backgroundColor: veryDarkBlue,
+      body: Align(
+          alignment: Alignment.topCenter,
+          child: Column(
+            children: [
+              buildPlayer(),
+              const SizedBox(
+                height: 18,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildstate(),
+                  const SizedBox(
+                    width: 18,
+                  ),
+                  buildPlay(),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              buildUpload(),
+            ],
+          )),
     );
   }
 
@@ -116,12 +149,14 @@ class _BuildstateState extends State<Buildstate> {
     final isPlaying = player.isPlaying;
     final icon = isPlaying ? Icons.stop : Icons.play_arrow;
     final text = isPlaying ? 'Stop Player' : 'Play Recording';
+    final primary = isPlaying ? Colors.red : Colors.white;
+    final onPrimary = isPlaying ? Colors.white : Colors.black;
 
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
-        minimumSize: Size(195, 50),
-        primary: Colors.white,
-        onPrimary: Colors.black,
+        minimumSize: const Size(195, 50),
+        primary: primary,
+        onPrimary: onPrimary,
       ),
       icon: Icon(icon),
       label: Text(text),
@@ -130,5 +165,25 @@ class _BuildstateState extends State<Buildstate> {
         setState(() {});
       },
     );
+  }
+
+  Widget buildUpload() {
+    return ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          minimumSize: const Size(195, 50),
+          primary: Colors.green,
+        ),
+        onPressed: () {},
+        icon: const Icon(Icons.upload_file),
+        label: const Text('upload'));
+  }
+
+  Future<void> _onUploadComplete() async {
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    ListResult listResult =
+        await firebaseStorage.ref().child('upload-voice-firebase').list();
+    setState(() {
+      references = listResult.items;
+    });
   }
 }
