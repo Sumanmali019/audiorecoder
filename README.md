@@ -3,8 +3,7 @@
 A new Flutter project.
 
 ## Getting Started
-This is the project where the user can singup/login and record there voice.
-Sent that recored voice to the firebase firestore and get back the recoreded audio in thw website.
+This is the project where the user can singup/login and record there voice. Sent that recored voice to the firebase firestore and get back the recoreded audio in the website.
 
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
