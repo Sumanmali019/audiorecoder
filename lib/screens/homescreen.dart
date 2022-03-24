@@ -1,12 +1,4 @@
-import 'package:audiorecoed/firebaseAuth/login_service.dart';
-import 'package:audiorecoed/soundAPI/sound_player.dart';
-import 'package:audiorecoed/soundAPI/sound_recoder.dart';
-import 'package:audiorecoed/soundAPI/upload_api.dart';
-import 'package:audiorecoed/theme/colors.dart';
-import 'package:audiorecoed/widgets/timer_widget.dart';
-import 'package:avatar_glow/avatar_glow.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
+import 'package:audiorecoed/screens/export_screen.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({
@@ -21,10 +13,6 @@ class _HomepageState extends State<Homepage> {
   final timeController = TimeController();
   final recorder = Soundrecoder();
   final player = SoundPlayer();
-  // final upload = Recodedbutton(
-  //   onUploadComplete: () {},
-  // );
-  List<Reference> references = [];
 
   @override
   void initState() {
@@ -176,14 +164,5 @@ class _HomepageState extends State<Homepage> {
         onPressed: () {},
         icon: const Icon(Icons.upload_file),
         label: const Text('upload'));
-  }
-
-  Future<void> _onUploadComplete() async {
-    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-    ListResult listResult =
-        await firebaseStorage.ref().child('upload-voice-firebase').list();
-    setState(() {
-      references = listResult.items;
-    });
   }
 }

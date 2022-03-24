@@ -1,5 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter_sound_lite/flutter_sound.dart';
+import 'package:audiorecoed/soundAPI/export_soundapi.dart';
 
 class SoundPlayer {
   FlutterSoundPlayer? _audioPlayer;

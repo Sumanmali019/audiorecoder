@@ -1,4 +1,4 @@
-import 'package:audiorecoed/firebaseAuth/firebase.dart';
+import 'package:audiorecoed/firebaseAuth/export_firebase.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -34,7 +34,7 @@ class Authentication {
         userEmail = user.email;
         Get.to(() => const Homepage());
       }
-      const SnackBar(content: Text('Logged in successfully'));
+      print('Logged in successfully');
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'weak password':
@@ -45,7 +45,7 @@ class Authentication {
               content: Text('The account already exists for that email.'));
           break;
         default:
-          const SnackBar(content: Text('Error in signup'));
+          print('error');
       }
     }
   }

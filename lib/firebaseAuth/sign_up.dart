@@ -1,4 +1,4 @@
-import 'package:audiorecoed/firebaseAuth/firebase.dart';
+import 'package:audiorecoed/firebaseAuth/export_firebase.dart';
 
 class Singup extends StatefulWidget {
   const Singup({Key? key}) : super(key: key);
@@ -73,9 +73,9 @@ class _SingupState extends State<Singup> {
               borderSide: const BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.circular(5.5),
             ),
-            prefixIcon: Icon(prefixIcons, color: Colors.blue),
+            prefixIcon: Icon(prefixIcons, color: Colors.black),
             hintText: labelText,
-            hintStyle: const TextStyle(color: Colors.blue),
+            hintStyle: const TextStyle(color: Colors.black),
             filled: true,
             fillColor: Colors.blue[50],
           ),
@@ -103,7 +103,7 @@ class _SingupState extends State<Singup> {
             ),
             prefixIcon: Icon(prefixIcons, color: Colors.blue),
             hintText: labelText,
-            hintStyle: const TextStyle(color: Colors.blue),
+            hintStyle: const TextStyle(color: Colors.black),
             filled: true,
             fillColor: Colors.blue[50],
           ),
