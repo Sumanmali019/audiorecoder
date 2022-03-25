@@ -55,15 +55,18 @@ class _HomepageState extends State<Homepage> {
               const SizedBox(
                 height: 18,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildstate(),
-                  const SizedBox(
-                    width: 18,
-                  ),
-                  buildPlay(),
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildstate(),
+                    const SizedBox(
+                      width: 18,
+                    ),
+                    buildPlay(),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 10,

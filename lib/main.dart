@@ -1,3 +1,5 @@
+import 'package:audiorecoed/firebaseAuth/sign_up.dart';
+import 'package:audiorecoed/screens/homescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'firebaseAuth/login_service.dart';
@@ -20,8 +22,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Audio recoder',
-        home: Authentication().loginservice());
+      routes: {
+        "/": (context) => const Singup(),
+        "/Homepage": (context) => const Homepage(),
+      },
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Audio recoder',
+    );
   }
 }
